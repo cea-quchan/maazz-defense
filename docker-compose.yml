@@ -85,6 +85,25 @@ services:
     ports:
       - '8005:8000'
 
+  reporter:
+    build: ./services/reporter
+    environment:
+      - REPORTER_OUTPUT_DIR=${REPORTER_OUTPUT_DIR}
+      - LLM_URL=${LLM_URL}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASS=${SMTP_PASS}
+      - FROM_EMAIL=${FROM_EMAIL}
+      - TO_EMAIL=${TO_EMAIL}
+    volumes:
+      - ${REPORTER_OUTPUT_DIR}:${REPORTER_OUTPUT_DIR}
+    ports:
+      - '8006:8000'
+
 volumes:
   pgdata:
   mongodata:
