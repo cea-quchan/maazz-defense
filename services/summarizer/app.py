@@ -5,6 +5,9 @@ from typing import List, Dict, Any
 import logging
 # در صورت نیاز، می‌توانید کتابخانهٔ openai را import و استفاده کنید
 import openai
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI(title="LLM Summarizer Service")
 

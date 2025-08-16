@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          pip install pytest fastapi uvicorn aiokafka pydantic openai python-dotenv pandas scikit-learn joblib
+      - name: Run tests
+        run: pytest
+      - name: Build Docker images
+        run: |
+          docker build -t parser ./services/parser
+          docker build -t features ./services/features
+          docker build -t ml_serving ./services/ml_serving
+          docker build -t alerts ./services/alerts
+          docker build -t summarizer ./services/summarizer
+
