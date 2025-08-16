@@ -1,0 +1,16 @@
+# پوشه‌هایی که نباید وارد مخزن گیت شوند
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# فایل‌های محیطی
+.env
+
+# داده‌های تولیدی
+models/iforest_model.pkl
+models/train_data.csv
+
+# تنظیمات محیط‌های IDE
+.vscode/
+.idea/

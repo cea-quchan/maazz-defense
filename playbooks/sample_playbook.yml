@@ -1,0 +1,29 @@
+# نمونه پلی‌بوک SOAR
+
+version: "1.0"
+description: >
+  این پلی‌بوک یک سناریوی ساده را برای واکنش به ناهنجاری در سیستم نشان می‌دهد. اگر یک رخداد
+  ناهنجار تشخیص داده شود، حساب کاربر قفل می‌شود و مدیر سیستم مطلع می‌شود.
+
+steps:
+  - id: check_anomaly
+    description: بررسی می‌کند که آیا رویداد شناسایی‌شده ناهنجار است یا خیر.
+    action: |
+      if input.anomaly:
+        proceed: true
+      else:
+        proceed: false
+
+  - id: lock_account
+    description: قفل کردن حساب کاربر در سرویس احراز هویت (مثلاً Active Directory).
+    when: check_anomaly.proceed == true
+    action: |
+      # این قسمت باید با API یا اسکریپت مناسب محیط شما تکمیل شود
+      print(f"Locking account for user {input.context.get('user')}...")
+
+  - id: notify_admin
+    description: اطلاع‌رسانی به مدیر سیستم دربارهٔ ناهنجاری.
+    when: check_anomaly.proceed == true
+    action: |
+      # ارسال ایمیل یا پیام به کانال نظارتی
+      print(f"Alert sent to {env.ALERT_EMAIL} about anomaly: {input.context}")

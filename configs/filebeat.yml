@@ -1,0 +1,17 @@
+# پیکربندی نمونه Filebeat برای جمع‌آوری لاگ‌های لینوکس
+
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/auth.log
+      - /var/log/syslog
+    multiline.pattern: '^\s'
+    multiline.negate: false
+    multiline.match: after
+
+output.kafka:
+  hosts: ["${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}"]
+  topic: "logs.raw"
+
+# این بخش برای آزمایش محلی با Docker لازم نیست و می‌تواند در حالت production تنظیم شود.

@@ -1,0 +1,15 @@
+# پیکربندی نمونه Winlogbeat برای جمع‌آوری رویدادهای ویندوز
+
+winlogbeat.event_logs:
+  - name: Security
+    ignore_older: 72h
+  - name: System
+    ignore_older: 72h
+  - name: Application
+    ignore_older: 72h
+
+output.kafka:
+  hosts: ["${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}"]
+  topic: "logs.raw"
+
+# این پیکربندی‌ها باید روی ماشین‌های ویندوز نصب و اجرا شوند.
